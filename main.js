@@ -4,8 +4,8 @@ let player = new Player(225, 750, board)
 let timerId
 let spawnId
 let enemies = []
-let lastEnemySpawnTime = Date.now();
-let enemySpawnInterval = 3000; // 3000 milisegundos = 3 segundos entre cada generación de enemigos
+let lastEnemySpawnTime = Date.now()
+let enemySpawnInterval = 3000 // 3000 milisegundos = 3 segundos entre cada generación de enemigos
 
 // function gameStart() {
 //     player.insertPlayer()
@@ -15,13 +15,13 @@ let enemySpawnInterval = 3000; // 3000 milisegundos = 3 segundos entre cada gene
 
 
 function gameStart() {
-    player.insertPlayer();
+    player.insertPlayer()
     function gameLoop() {
         movePlayer()
-        let currentTime = Date.now();
+        let currentTime = Date.now()
         if (currentTime - lastEnemySpawnTime > enemySpawnInterval) {
-            createEnemies();
-            lastEnemySpawnTime = currentTime;
+            createEnemies()
+            lastEnemySpawnTime = currentTime
         }
         requestAnimationFrame(gameLoop)
     }
