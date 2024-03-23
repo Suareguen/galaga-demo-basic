@@ -16,6 +16,15 @@
     left: 225px; */
 }
 
+#wall {
+    width: 100px;
+    height: 40px;
+    background-color: gray;
+    position: absolute;
+    top: 700px;
+    left: 50px;
+}
+
 
 .enemy {
     width: 50px;

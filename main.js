@@ -1,14 +1,31 @@
 let board = document.getElementById('board')
-
+let wall = document.getElementById('wall')
 let player = new Player(225, 750, board)
 let timerId
 let spawnId
 let enemies = []
+let lastEnemySpawnTime = Date.now();
+let enemySpawnInterval = 3000; // 3000 milisegundos = 3 segundos entre cada generación de enemigos
+
+// function gameStart() {
+//     player.insertPlayer()
+//     timerId = setInterval(movePlayer, 25)
+//     // spawnId = setInterval(createEnemies, 3000)
+// }
+
 
 function gameStart() {
-    player.insertPlayer()
-    timerId = setInterval(movePlayer, 25)
-    spawnId = setInterval(createEnemies, 3000)
+    player.insertPlayer();
+    function gameLoop() {
+        movePlayer()
+        let currentTime = Date.now();
+        if (currentTime - lastEnemySpawnTime > enemySpawnInterval) {
+            createEnemies();
+            lastEnemySpawnTime = currentTime;
+        }
+        requestAnimationFrame(gameLoop)
+    }
+    gameLoop()
 }
 
 
@@ -45,8 +62,14 @@ window.addEventListener('keydown', function (e) {
             player.direction = 1
             break
         case ' ':
+            if (player.y >= 750) { // Asegúrate de ajustar este valor según el suelo de tu juego
+                player.velocityY = -20 // Ajusta este valor para cambiar la fuerza del salto
+            }
+            break
+        case 'm':
             let bullet = new Bullet(player.x + player.width / 2 - 10, player.y - 20, board, enemies)
             bullet.insertBullet()
+            player.direction = 1
             break
         // player.move()
         // case 'w':
